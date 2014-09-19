@@ -1,5 +1,6 @@
 #import "OSVAppDelegate.h"
 #import "OSVConcentricView.h"
+#import "OSVPinnedView.h"
 
 @implementation OSVAppDelegate
 
@@ -8,13 +9,16 @@
     CGRect bounds = [[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:bounds];
     
-    CGRect subviewFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height*2);
-    OSVConcentricView *concentricView = [[OSVConcentricView alloc] initWithFrame:subviewFrame];
+    CGRect mainViewFrame = CGRectMake(0, 0, bounds.size.width*1.5, bounds.size.height*2);
+    OSVConcentricView *mainView = [[OSVConcentricView alloc] initWithFrame:mainViewFrame];
     
-    UIScrollView *scrollView = [UIScrollView new];
-    [scrollView addSubview:concentricView];
-    scrollView.contentSize = concentricView.frame.size;
-//    scrollView.pagingEnabled = YES;
+    CGRect topViewFrame = CGRectMake(0, 0, mainViewFrame.size.width, 30);
+    OSVConcentricView *topView = [[OSVConcentricView alloc] initWithFrame:topViewFrame];
+    
+    OSVPinnedView *scrollView = [OSVPinnedView new];
+    [scrollView addSubview:mainView];
+    [scrollView addPinnedView:topView];
+    scrollView.contentSize = mainView.frame.size;
     
     UIViewController *viewController = [UIViewController new];
     viewController.view = scrollView;
