@@ -9,19 +9,38 @@
     CGRect bounds = [[UIScreen mainScreen] bounds];
     self.window = [[UIWindow alloc] initWithFrame:bounds];
     
-    CGRect mainViewFrame = CGRectMake(0, 0, bounds.size.width*1.5, bounds.size.height*2);
-    OSVConcentricView *mainView = [[OSVConcentricView alloc] initWithFrame:mainViewFrame];
+    int pages = 3;
+    CGFloat verticalMultiplier = 2;
     
-    CGRect topViewFrame = CGRectMake(0, 0, mainViewFrame.size.width, 30);
+    // Create horizontal scroll view
+    OSVPinnedView *horizontalScroll = [OSVPinnedView new];
+    horizontalScroll.pagingEnabled = YES;
+    horizontalScroll.directionalLockEnabled = YES;
+    
+    // Create and add pages
+    for (int index = 0; index < pages; index++) {
+        CGRect pageFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height*verticalMultiplier);
+        OSVConcentricView *pageView = [[OSVConcentricView alloc] initWithFrame:pageFrame];
+        
+        UIScrollView *verticalScroll = [UIScrollView new];
+        verticalScroll.frame = CGRectMake(bounds.size.width * index, 0, bounds.size.width, bounds.size.height);
+        
+        [verticalScroll addSubview:pageView];
+        verticalScroll.contentSize = CGSizeMake(bounds.size.width, pageFrame.size.height);
+        
+        [horizontalScroll addSubview:verticalScroll];
+    }
+    
+    // Set pinned top view
+    CGRect topViewFrame = CGRectMake(0, 0, bounds.size.width * 3, 30);
     OSVConcentricView *topView = [[OSVConcentricView alloc] initWithFrame:topViewFrame];
+    [horizontalScroll addPinnedView:topView];
     
-    OSVPinnedView *scrollView = [OSVPinnedView new];
-    [scrollView addSubview:mainView];
-    [scrollView addPinnedView:topView];
-    scrollView.contentSize = mainView.frame.size;
+    // Set con  tent size
+    horizontalScroll.contentSize = CGSizeMake(bounds.size.width*pages, bounds.size.height);
     
     UIViewController *viewController = [UIViewController new];
-    viewController.view = scrollView;
+    viewController.view = horizontalScroll;
     
     self.window.rootViewController = viewController;
     self.window.backgroundColor = [UIColor whiteColor];
