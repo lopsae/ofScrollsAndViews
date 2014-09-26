@@ -25,20 +25,15 @@
         OSVConcentricView *pageView = [[OSVConcentricView alloc] initWithFrame:pageFrame];
         
         OSVConnectedView *verticalScroll = [OSVConnectedView new];
-        verticalScroll.frame = CGRectMake(bounds.size.width * index, 0, bounds.size.width, bounds.size.height);
+        [verticalViews addObject:verticalScroll];
         
-        [verticalScroll addSubview:pageView];
+        verticalScroll.frame = CGRectMake(bounds.size.width * index, 0, bounds.size.width, bounds.size.height);
         verticalScroll.contentSize = CGSizeMake(bounds.size.width, pageFrame.size.height);
+        verticalScroll.connectedViews = verticalViews;
+        [verticalScroll addSubview:pageView];
         
         [horizontalScroll addSubview:verticalScroll];
-        [verticalViews addObject:verticalScroll];
     }
-    
-    // Hacky connections
-    OSVConnectedView *firstVertical = [verticalViews firstObject];
-    OSVConnectedView *secondVertical = verticalViews[1];
-    [firstVertical connectView:verticalViews[1]];
-    [secondVertical connectView:firstVertical];
     
     // Set pinned top view
     CGRect topViewFrame = CGRectMake(0, 0, bounds.size.width * 3, 30);

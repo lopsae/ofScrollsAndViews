@@ -4,8 +4,6 @@
 
 @interface OSVConnectedView()
 
-@property (strong, nonatomic) NSMutableArray *connectedViews;
-
 @end
 
 
@@ -16,30 +14,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    
     _connectedViews = [NSMutableArray new];
-    self.delegate = self;
-    
     return self;
-}
-
-
-
-- (void)connectView:(OSVConnectedView *)connectedView
-{
-    [self.connectedViews addObject:connectedView];
-}
-
-
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-}
-
-
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
 }
 
 
@@ -48,18 +24,22 @@
 {
     [super layoutSubviews];
     
-    
-    if (self.isDragging || self.isDecelerating) {
-        for (OSVConnectedView *connectedView in self.connectedViews) {
-            CGPoint newContentOffset = connectedView.contentOffset;
-            newContentOffset.y = self.contentOffset.y;
-            connectedView.contentOffset = newContentOffset;
-            NSLog(@"layoutSubviews called %p, %d,%d", connectedView, (int) newContentOffset.x, (int)newContentOffset.y);
-        }
+    if (!self.connectedViews) {
+        return;
     }
     
-    if (!self.connectedViews.count) {
-        NSLog(@"layoutSubviews also called for connected movement");
+    if (self.isDragging || self.isDecelerating) {
+        for (UIScrollView *singleConnectedView in self.connectedViews) {
+            if (singleConnectedView == self) {
+                continue;
+            }
+            
+            CGPoint newContentOffset = singleConnectedView.contentOffset;
+            newContentOffset.y = self.contentOffset.y;
+            singleConnectedView.contentOffset = newContentOffset;
+        }
+    } else {
+        NSLog(@"connected being dragged %p, %d,%d", self, (int) self.contentOffset.x, (int)self.contentOffset.y);
     }
 }
 
