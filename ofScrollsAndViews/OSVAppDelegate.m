@@ -2,6 +2,7 @@
 #import "OSVConcentricView.h"
 #import "OSVPinnedView.h"
 #import "OSVSnappyView.h"
+#import "OSVConnectedView.h"
 
 @implementation OSVAppDelegate
 
@@ -15,22 +16,29 @@
     
     // Create horizontal scroll view
     OSVSnappyView *horizontalScroll = [OSVSnappyView new];
-//    horizontalScroll.pagingEnabled = YES;
     horizontalScroll.directionalLockEnabled = YES;
     
     // Create and add pages
+    NSMutableArray *verticalViews = [NSMutableArray new];
     for (int index = 0; index < pages; index++) {
         CGRect pageFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height*verticalMultiplier);
         OSVConcentricView *pageView = [[OSVConcentricView alloc] initWithFrame:pageFrame];
         
-        UIScrollView *verticalScroll = [UIScrollView new];
+        OSVConnectedView *verticalScroll = [OSVConnectedView new];
         verticalScroll.frame = CGRectMake(bounds.size.width * index, 0, bounds.size.width, bounds.size.height);
         
         [verticalScroll addSubview:pageView];
         verticalScroll.contentSize = CGSizeMake(bounds.size.width, pageFrame.size.height);
         
         [horizontalScroll addSubview:verticalScroll];
+        [verticalViews addObject:verticalScroll];
     }
+    
+    // Hacky connections
+    OSVConnectedView *firstVertical = [verticalViews firstObject];
+    OSVConnectedView *secondVertical = verticalViews[1];
+    [firstVertical connectView:verticalViews[1]];
+    [secondVertical connectView:firstVertical];
     
     // Set pinned top view
     CGRect topViewFrame = CGRectMake(0, 0, bounds.size.width * 3, 30);
