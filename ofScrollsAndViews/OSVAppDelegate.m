@@ -1,6 +1,7 @@
 #import "OSVAppDelegate.h"
 #import "OSVConcentricView.h"
 #import "OSVPinnedView.h"
+#import "OSVSnappyView.h"
 
 @implementation OSVAppDelegate
 
@@ -13,8 +14,8 @@
     CGFloat verticalMultiplier = 2;
     
     // Create horizontal scroll view
-    OSVPinnedView *horizontalScroll = [OSVPinnedView new];
-    horizontalScroll.pagingEnabled = YES;
+    OSVSnappyView *horizontalScroll = [OSVSnappyView new];
+//    horizontalScroll.pagingEnabled = YES;
     horizontalScroll.directionalLockEnabled = YES;
     
     // Create and add pages
@@ -36,8 +37,9 @@
     OSVConcentricView *topView = [[OSVConcentricView alloc] initWithFrame:topViewFrame];
     [horizontalScroll addPinnedView:topView];
     
-    // Set con  tent size
+    // Set content size
     horizontalScroll.contentSize = CGSizeMake(bounds.size.width*pages, bounds.size.height);
+    horizontalScroll.snappyWidth = bounds.size.width / 3;
     
     UIViewController *viewController = [UIViewController new];
     viewController.view = horizontalScroll;

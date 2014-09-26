@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D5E8CBE19C2411F00104009 /* OSVPinnedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5E8CBD19C2411F00104009 /* OSVPinnedView.m */; };
+		2D7E86BC19D4DEF400049B29 /* OSVSnappyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E86BB19D4DEF400049B29 /* OSVSnappyView.m */; };
 		2DC4316E19BFDA840040C889 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC4316D19BFDA840040C889 /* Foundation.framework */; };
 		2DC4317019BFDA840040C889 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC4316F19BFDA840040C889 /* CoreGraphics.framework */; };
 		2DC4317219BFDA840040C889 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC4317119BFDA840040C889 /* UIKit.framework */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		2D5E8CBC19C2411F00104009 /* OSVPinnedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSVPinnedView.h; path = src/OSVPinnedView.h; sourceTree = "<group>"; };
 		2D5E8CBD19C2411F00104009 /* OSVPinnedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OSVPinnedView.m; path = src/OSVPinnedView.m; sourceTree = "<group>"; };
+		2D7E86BA19D4DEF400049B29 /* OSVSnappyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSVSnappyView.h; sourceTree = "<group>"; };
+		2D7E86BB19D4DEF400049B29 /* OSVSnappyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSVSnappyView.m; sourceTree = "<group>"; };
 		2DC4316A19BFDA840040C889 /* ofScrollsAndViews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ofScrollsAndViews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DC4316D19BFDA840040C889 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2DC4316F19BFDA840040C889 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -158,6 +161,8 @@
 				2DC4319D19BFDBF70040C889 /* OSVConcentricView.m */,
 				2D5E8CBC19C2411F00104009 /* OSVPinnedView.h */,
 				2D5E8CBD19C2411F00104009 /* OSVPinnedView.m */,
+				2D7E86BA19D4DEF400049B29 /* OSVSnappyView.h */,
+				2D7E86BB19D4DEF400049B29 /* OSVSnappyView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D7E86BC19D4DEF400049B29 /* OSVSnappyView.m in Sources */,
 				2DC4317A19BFDA840040C889 /* main.m in Sources */,
 				2DC4317E19BFDA840040C889 /* OSVAppDelegate.m in Sources */,
 				2DC4319E19BFDBF70040C889 /* OSVConcentricView.m in Sources */,
